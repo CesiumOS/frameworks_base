@@ -4961,6 +4961,22 @@ public final class Settings {
         private static final Validator QS_PANEL_BG_USE_NEW_TINT_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Boolean value whether to link ringtone and notification volume
+         * @hide
+         */
+        public static final String VOLUME_LINK_NOTIFICATION = "volume_link_notification";
+
+        /** @hide */
+        public static final Validator VOLUME_LINK_NOTIFICATION_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * IMPORTANT: If you add a new public settings you also have to add it to
+         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
+         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
+         * the setting value. See an example above.
+         */
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5206,6 +5222,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VIBRATE_ON_CALLWAITING);
             PRIVATE_SETTINGS.add(VIBRATE_ON_DISCONNECT);
             PRIVATE_SETTINGS.add(QS_PANEL_BG_USE_NEW_TINT);
+            PRIVATE_SETTINGS.add(VOLUME_LINK_NOTIFICATION);
         }
 
         /**
@@ -5335,6 +5352,7 @@ public final class Settings {
             VALIDATORS.put(VIBRATE_ON_CALLWAITING, VIBRATE_ON_CALLWAITING_VALIDATOR);
             VALIDATORS.put(VIBRATE_ON_DISCONNECT, VIBRATE_ON_DISCONNECT_VALIDATOR);
             VALIDATORS.put(QS_PANEL_BG_USE_NEW_TINT, QS_PANEL_BG_USE_NEW_TINT_VALIDATOR);
+            VALIDATORS.put(VOLUME_LINK_NOTIFICATION, VOLUME_LINK_NOTIFICATION_VALIDATOR);
         }
 
         /**
