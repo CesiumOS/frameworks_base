@@ -108,8 +108,18 @@
     <!-- Whether device supports variable refresh rate -->
     <bool name="config_hasVariableRefreshRate">false</bool>
 
-    <!-- The list of vendor package signatures that should also be considered
-         platform signatures, specifically for use on devices with a vendor partition. -->
-    <string-array name="config_vendorPlatformSignatures">
+    <string-array name="config_locationProviderPackageNames" translatable="false">
+        <!-- The standard AOSP fused location provider -->
+        <item>com.android.location.fused</item>
+        <!-- The (faked) microg fused location provider (a free reimplementation) -->
+        <item>com.google.android.gms</item>
+        <!-- microG unifiednlp location provider (standalone) -->
+        <item>org.microg.nlp</item>
     </string-array>
+
+    <!-- Path to the library that contains a alternative device specific key handler -->
+    <string name="config_alternativeDeviceKeyHandlerLib" translatable="false"></string>
+
+    <!-- Name of that alternative key handler class -->
+    <string name="config_alternativeDeviceKeyHandlerClass" translatable="false"></string>
 </resources>
