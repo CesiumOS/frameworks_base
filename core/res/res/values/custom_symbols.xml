@@ -90,4 +90,6 @@
     <!-- Toast animation -->
     <java-symbol type="style" name="Animation.Toast.Material" />
 
+    <!-- Whether device can force navbar disabling -->
+    <java-symbol type="bool" name="config_canForceDisableNavigationBar" />
 </resources>
