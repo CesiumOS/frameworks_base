@@ -183,6 +183,8 @@ import com.android.server.wm.utils.InsetUtils;
 
 import java.io.PrintWriter;
 
+import com.android.internal.util.custom.NavbarUtils;
+
 /**
  * The policy that provides the basic behaviors and states of a display to show UI.
  */
@@ -443,6 +445,9 @@ public class DisplayPolicy {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SWIPE_TO_SCREENSHOT), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_SHOW), false, this,
+                    UserHandle.USER_ALL);
 
             updateSettings();
         }
@@ -659,6 +664,7 @@ public class DisplayPolicy {
         final boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                 Settings.System.SWIPE_TO_SCREENSHOT, 1, UserHandle.USER_CURRENT) == 1;
         enableSwipeThreeFingerGesture(threeFingerGesture);
+              updateNavigationBarState();
     }
 
     private int getDisplayId() {
