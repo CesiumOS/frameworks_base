@@ -213,7 +213,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.cesium.Utils;
 import com.android.server.ExtconStateObserver;
 import com.android.server.ExtconUEventObserver;
-import com.android.internal.util.ancient.Utils;
+import com.android.internal.util.cesium.Utils;
 import com.android.internal.util.hwkeys.ActionHandler;
 import com.android.internal.util.hwkeys.ActionUtils;
 import com.android.internal.util.ScreenshotHelper;
@@ -678,6 +678,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_MOVE_DISPLAY_TO_TOP = 28;
     private static final int MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK = 29;
     private static final int MSG_TOGGLE_TORCH = 30;
+
+    private boolean mHasPermanentMenuKey;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -3975,7 +3977,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && event.getRepeatCount() == 0;
 
         if (!virtualKey) {
-            if (isHwKeysDisabled() || keyguardOn()) {
+            if (isHwKeysDisabled() || keyguardOn() || isDozeMode()) {
                 useHapticFeedback = false;
             }
         }
