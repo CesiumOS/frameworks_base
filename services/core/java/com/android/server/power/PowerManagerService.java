@@ -621,6 +621,7 @@ public final class PowerManagerService extends SystemService
     private boolean mSmartChargingEnabled;
     private int mSmartChargingLevel;
     private int mSmartChargingLevelDefaultConfig;
+    private boolean mSmartChargingResetStats;
     // Handle charger
     private boolean mUseCharger = true;
     // Handle battery charging, when false the charger will keep the
@@ -993,6 +994,9 @@ public final class PowerManagerService extends SystemService
         resolver.registerContentObserver(Settings.System.getUriFor(
                 Settings.System.SMART_CHARGING_LEVEL),
                 false, mSettingsObserver, UserHandle.USER_ALL);
+        resolver.registerContentObserver(Settings.System.getUriFor(
+                Settings.System.SMART_CHARGING_RESET_STATS),
+                false, mSettingsObserver, UserHandle.USER_ALL);
         IVrManager vrManager = IVrManager.Stub.asInterface(getBinderService(Context.VR_SERVICE));
         if (vrManager != null) {
             try {
@@ -1073,6 +1077,8 @@ public final class PowerManagerService extends SystemService
                     .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProximityWakeLock");
         mSmartChargingLevelDefaultConfig = resources.getInteger(
                 com.android.internal.R.integer.config_smartChargingBatteryLevel);
+        mSmartChargingResetStats = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
         }
     }
 
@@ -1107,6 +1113,8 @@ public final class PowerManagerService extends SystemService
         mSmartChargingLevel = Settings.System.getInt(resolver,
                 Settings.System.SMART_CHARGING_LEVEL,
                 mSmartChargingLevelDefaultConfig);
+        mSmartChargingResetStats = Settings.System.getInt(resolver,
+                Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
 
         if (mSupportsDoubleTapWakeConfig) {
             boolean doubleTapWakeEnabled = Settings.Secure.getIntForUser(resolver,
@@ -1931,13 +1939,14 @@ public final class PowerManagerService extends SystemService
                 allowBatteryCharging = false;
             }
             
-            if (mChargeBattery != allowBatteryCharging) {
+        if (mSmartChargingEnabled && !mPowerInputSuspended && (mBatteryLevel >= mSmartChargingLevel)) {
+            Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
+            if (mSmartChargingResetStats) {
                 try {
-                    mChargeBattery = allowBatteryCharging;
-                    FileUtils.stringToFile(BATTERY_CHARGER_PATH, mChargeBattery ? "1" : "0");
-                } catch (IOException e) {
-                    Slog.e(TAG, "failed to write to " + BATTERY_CHARGER_PATH);
-                    mChargeBattery = !mChargeBattery;
+                     mBatteryStats.resetStatistics();
+                } catch (RemoteException e) {
+                         Slog.e(TAG, "failed to reset battery statistics");
+;
                 }
             }
 
