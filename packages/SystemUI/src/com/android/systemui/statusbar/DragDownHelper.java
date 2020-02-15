@@ -27,7 +27,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.android.internal.util.exui.Utils;
+import com.android.internal.util.cesium.Utils;
 
 import com.android.systemui.ExpandHelper;
 import com.android.systemui.Gefingerpoken;

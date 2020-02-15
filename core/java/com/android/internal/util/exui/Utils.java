@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.exui;
+package com.android.internal.util.cesium;
 
 import android.Manifest;
 import android.content.Context;

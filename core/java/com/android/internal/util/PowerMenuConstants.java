@@ -43,7 +43,7 @@ public class PowerMenuConstants {
      *@hide
      */
     public static final String ACTION_UPDATE_POWER_MENU =
-            "exui.intent.action.UPDATE_POWER_MENU";
+            "cesium.intent.action.UPDATE_POWER_MENU";
 
     /**
      * Advanced restart menu actions
