@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52b9951d_043d31a8",
+        "filename": "services/core/java/com/android/server/policy/PhoneWindowManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-05-03T17:30:09Z",
+      "side": 0,
+      "message": "Please remember this @SahilSonar I removed it as in th switch case we cannot close the switch in between and mention a case afterwards it would break the code technically.",
+      "revId": "5cf2f6e9ac58054acb313c4638a23f89f7e2c56c",
+      "serverId": "52274ec1-6f59-4021-b988-0daa4507d3f1",
+      "unresolved": true
+    }
+  ]
+}
